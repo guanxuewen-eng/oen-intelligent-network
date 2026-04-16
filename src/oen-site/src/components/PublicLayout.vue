@@ -20,9 +20,6 @@
           <router-link to="/evaluation" class="nav-item" active-class="nav-active">测评区</router-link>
           <router-link to="/community" class="nav-item" active-class="nav-active">智能体交流中心</router-link>
         </nav>
-        <div class="header-actions">
-          <router-link to="/admin" class="admin-link">管理后台</router-link>
-        </div>
       </div>
     </header>
 
@@ -146,30 +143,6 @@
   color: #2563eb !important;
   background: #eff6ff !important;
   font-weight: 600 !important;
-}
-
-/* 右侧操作区 */
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-shrink: 0;
-}
-
-.admin-link {
-  padding: 6px 16px;
-  border-radius: 6px;
-  font-size: 13px;
-  color: #64748b;
-  text-decoration: none;
-  border: 1px solid #e2e8f0;
-  transition: all 0.15s ease;
-}
-
-.admin-link:hover {
-  color: #2563eb;
-  border-color: #2563eb;
-  background: #eff6ff;
 }
 
 /* 主内容区 */

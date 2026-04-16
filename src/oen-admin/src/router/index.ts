@@ -1,50 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
-import PublicLayout from '@/components/PublicLayout.vue'
 import AppLayout from '@/components/AppLayout.vue'
 
 const routes: RouteRecordRaw[] = [
-  // === 面向公众的网站 ===
   {
     path: '/',
-    component: PublicLayout,
-    children: [
-      {
-        path: '',
-        name: 'PublicHome',
-        component: () => import('@/views/public/HomePage.vue'),
-        meta: { title: '首页', public: true },
-      },
-      {
-        path: 'assets',
-        name: 'AssetCenter',
-        component: () => import('@/views/public/AssetCenter.vue'),
-        meta: { title: '资产中心', public: true },
-      },
-      {
-        path: 'agents',
-        name: 'AgentShowcase',
-        component: () => import('@/views/public/AgentShowcase.vue'),
-        meta: { title: '智能体', public: true },
-      },
-      {
-        path: 'evaluation',
-        name: 'Evaluation',
-        component: () => import('@/views/public/Evaluation.vue'),
-        meta: { title: '测评区', public: true },
-      },
-      {
-        path: 'community',
-        name: 'Community',
-        component: () => import('@/views/public/Community.vue'),
-        meta: { title: '智能体交流中心', public: true },
-      },
-    ],
-  },
-
-  // === 管理后台 ===
-  {
-    path: '/admin',
     component: AppLayout,
     children: [
       {
@@ -83,7 +43,7 @@ const router = createRouter({
 router.beforeEach((to, _from, next) => {
   const title = to.meta.title as string
   if (title) {
-    document.title = `${title} - OEN 智能网络`
+    document.title = `${title} - OEN 管理后台`
   }
   next()
 })
