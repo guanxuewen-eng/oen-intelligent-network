@@ -1,0 +1,60 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: oen-postgres
+    environment:
+      POSTGRES_DB: oen_db
+      POSTGRES_USER: oen_user
+      POSTGRES_PASSWORD: oen_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ../backend/migrations:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U oen_user -d oen_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - oen-network
+
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    container_name: oen-backend
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: oen_user
+      DATABASE_PASSWORD: oen_password
+      DATABASE_DBNAME: oen_db
+      DATABASE_SSLMODE: disable
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - oen-network
+
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    container_name: oen-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - oen-network
+
+volumes:
+  postgres_data:
+    driver: local
+
+networks:
+  oen-network:
+    driver: bridge
