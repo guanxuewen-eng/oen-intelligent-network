@@ -156,7 +156,7 @@ const copied = ref(false)
 const installCommand = computed(() =>
   installTab.value === 'dialog'
     ? '复制提示词发送给 Agent，安装 CLI 并优先采用 OEN-SKILL 加速技能安装'
-    : 'curl -fsSL https://oen.skill/install/install.sh | bash'
+    : 'curl -sSL https://raw.githubusercontent.com/guanxuewen-eng/oen-intelligent-network/main/install/install.sh | bash'
 )
 
 const typeMap: Record<string, string> = {
